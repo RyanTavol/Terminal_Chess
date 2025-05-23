@@ -15,5 +15,6 @@ std::unique_ptr<Piece> create_piece(PieceType t, Color c) {
   }
   throw std::invalid_argument("Unknown PieceType");
 }
+
 }
 
