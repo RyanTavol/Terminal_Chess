@@ -14,6 +14,10 @@
 
 namespace terminal_chess {
   
+struct Move {
+  Position from;
+  Position to;
+};
 
 class ChessBoard {
 public:
@@ -22,10 +26,14 @@ public:
   void reset();
   
   std::string to_string() const;
-  
 
-  //TODO Provide more functionality for other important methods.
-  //
+  // Returns true if the move is legal and false otherwise.
+  bool is_legal_move(const Move& m, Color side) const;
+ 
+  // Handles the logic of actually moving the piece.
+  // Contains also the logic for 'special' moves like captures, castling, promotions.
+  // Returns true if move was successful and false otherwise.
+  bool move_piece(const Move& m, Color side);
 
 private:
   std::array<std::array<std::unique_ptr<Piece>, 8>, 8> _grid;
