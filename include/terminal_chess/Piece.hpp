@@ -35,6 +35,13 @@ public:
 
 private:
   Color _color;
+
+protected:
+  virtual std::string _symbol_from_mode(bool darkMode, std::string whitePiece, std::string blackPiece) const final {
+    if (darkMode) 
+      return color()==Color::White ? blackPiece : whitePiece;
+    return color()==Color::White ? whitePiece : blackPiece;
+  }
 };
 
 // TODO Implement move complicated Piece moving (such as blocking pieces, check, etc);
@@ -45,9 +52,7 @@ public:
   explicit King(Color c) : Piece(c) {}
   PieceType type() const override { return PieceType::King; }
   std::string symbol(bool darkMode) const override {
-    if (darkMode) 
-      return color()==Color::White ? "♚" : "♔"; 
-    return color()==Color::White ? "♔" : "♚"; 
+    return _symbol_from_mode(darkMode, "♔", "♚");
   }
   bool can_move(const Position& from, const Position& to, const ChessBoard& board) const override {
     // King can only move one step in 1 direction.
@@ -90,9 +95,7 @@ public:
   explicit Rook(Color c) : Piece(c) {}
   PieceType type() const override { return PieceType::Rook; }
   std::string symbol(bool darkMode) const override {
-    if (darkMode) 
-      return color()==Color::White ? "♜" : "♖"; 
-    return color()==Color::White ? "♖" : "♜"; 
+    return _symbol_from_mode(darkMode, "♖", "♜");
   }
   bool can_move(const Position& from, const Position& to, const ChessBoard& board) const override {
     // Rook can move only vertical or horizontal.
@@ -107,9 +110,7 @@ public:
   explicit Bishop(Color c) : Piece(c) {}
   PieceType type() const override { return PieceType::Bishop; }
   std::string symbol(bool darkMode) const override {
-    if (darkMode) 
-      return color()==Color::White ? "♝" : "♝"; 
-    return color()==Color::White ? "♗" : "♝"; 
+    return _symbol_from_mode(darkMode, "♗", "♝");
   }
   bool can_move(const Position& from, const Position& to, const ChessBoard& board) const override {
     // Bishops can only move diagonally.
@@ -124,9 +125,7 @@ public:
   explicit Knight(Color c) : Piece(c) {}
   PieceType type() const override { return PieceType::Knight; }
   std::string symbol(bool darkMode) const override {
-    if (darkMode) 
-      return color()==Color::White ? "♞" : "♘"; 
-    return color()==Color::White ? "♘" : "♞"; 
+    return _symbol_from_mode(darkMode, "♘", "♞");
   }
   bool can_move(const Position& from, const Position& to, const ChessBoard& board) const override {
     // Knights can move in "L" shapes. (2,1) or (1,2).
@@ -141,9 +140,7 @@ public:
   explicit Pawn(Color c) : Piece(c) {}
   PieceType type() const override { return PieceType::Pawn; }
   std::string symbol(bool darkMode) const override {
-    if (darkMode) 
-      return color()==Color::White ? "♟" : "♙";
-    return color()==Color::White ? "♙" : "♟"; 
+    return _symbol_from_mode(darkMode, "♙", "♟");
   }
   bool can_move(const Position& from, const Position& to, const ChessBoard& board) const override {
     // Pawns have weird behavior. Pawns can do one of 3 moves.
