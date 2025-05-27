@@ -5,8 +5,10 @@
 
 #include "terminal_chess/ChessBoard.hpp"
 #include "terminal_chess/GameManager.hpp"
+#include "terminal_chess/Utils.hpp"
 
 using namespace terminal_chess;
+using namespace terminal_chess::utils;
 
 void test_1() {
   terminal_chess::ChessBoard board(true);
@@ -34,11 +36,26 @@ void test_2() {
   game.next_move({{7,6}, {5,5}});
 }
 
+void test_3() {
+  GameManager game(true);  
+  for (auto notation : { "e2=>e4", "e7e5", "g1f3" }) {
+    try {
+      Move m = parse_move(notation);
+      bool ok = game.next_move(m);
+    }
+    catch (const std::exception& e) {
+      std::cout << "ERROR parsing \"" << notation << "\": "
+                << e.what() << "\n";
+    }
+  }
+}
+
 int main() {
   std::cout << "Welcome to Terminal Chess" << "\n";
   
   // test_1();
-  test_2();
+  //  test_2();
+  test_3();
 
   return 0;
 }

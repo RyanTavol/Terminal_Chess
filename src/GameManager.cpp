@@ -5,7 +5,7 @@ namespace terminal_chess {
 
 GameManager::GameManager(bool darkMode)
 {
-  _board = GameManager(darkMode);
+  _board = ChessBoard(darkMode);
   new_game();
 }
 
