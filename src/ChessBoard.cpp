@@ -75,6 +75,10 @@ std::string ChessBoard::to_string() const {
   return out;
 }
 
+void ChessBoard::print_board(bool printWhite) {
+  std::cout << this->to_string() << "\n";
+}
+
 bool ChessBoard::is_legal_move(const Move& m, Color side) const {
   // TODO Remove the print statements.
   // If the move is not fully on the board it is not legal.
