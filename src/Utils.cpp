@@ -15,7 +15,7 @@ static char col_to_file_char(int c) {
 }
 
 static int rank_char_to_row(char r) {
-  if (r < '1' || r > '7')
+  if (r < '1' || r > '8')
     throw std::invalid_argument("Bad rank digit");
   return 8 - (r - '0');
 }

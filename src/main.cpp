@@ -5,12 +5,13 @@
 
 #include "terminal_chess/ChessBoard.hpp"
 #include "terminal_chess/GameManager.hpp"
+#include "terminal_chess/StateManager.hpp"
 #include "terminal_chess/Utils.hpp"
 
 using namespace terminal_chess;
 using namespace terminal_chess::utils;
 
-void test_1() {
+void move_test() {
   terminal_chess::ChessBoard board(true);
   std::cout << board.to_string() << "\n";
   Move pawnMove = {{6,4}, {4,4}};
@@ -29,19 +30,20 @@ void test_1() {
   std::cout << board.to_string() << "\n";
 }
 
-void test_2() {
+void manager_test() {
+
   terminal_chess::GameManager game(true);  
   game.next_move({{6,4}, {4,4}});
   game.next_move({{1,4}, {3,4}});
   game.next_move({{7,6}, {5,5}});
 }
 
-void test_3() {
+void move_parser_test() {
   GameManager game(true);  
   for (auto notation : { "e2=>e4", "e7e5", "g1f3" }) {
     try {
       Move m = parse_move(notation);
-      bool ok = game.next_move(m);
+      game.next_move(m);
     }
     catch (const std::exception& e) {
       std::cout << "ERROR parsing \"" << notation << "\": "
@@ -50,12 +52,16 @@ void test_3() {
   }
 }
 
+void io_test() {
+  std::cout << "Testing I/O" << "\n";
+  terminal_chess::StateManager state(true);
+  state.run_local_multi();
+}
+
 int main() {
   std::cout << "Welcome to Terminal Chess" << "\n";
   
-  // test_1();
-  //  test_2();
-  test_3();
+  io_test();
 
   return 0;
 }

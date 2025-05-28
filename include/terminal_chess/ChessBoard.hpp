@@ -19,6 +19,7 @@ struct Move {
   Position to;
 };
 
+
 class ChessBoard {
 public:
   explicit ChessBoard(bool darkMode = false);
@@ -26,6 +27,8 @@ public:
   void reset();
   
   std::string to_string() const;
+
+  void print_board(bool printWhite=true);
 
   // Returns true if the move is legal and false otherwise.
   bool is_legal_move(const Move& m, Color side) const;
@@ -50,5 +53,10 @@ private:
   void clear();
 
 };
+
+inline std::ostream& operator<<(std::ostream& os, const ChessBoard& board) {
+  os << board.to_string();
+  return os;
+}
 
 }

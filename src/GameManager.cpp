@@ -3,8 +3,7 @@
 
 namespace terminal_chess {
 
-GameManager::GameManager(bool darkMode)
-{
+GameManager::GameManager(bool darkMode) {
   _board = ChessBoard(darkMode);
   new_game();
 }
@@ -23,8 +22,6 @@ bool GameManager::next_move(const Move& m) {
     std::cout << "Move did not work" << "\n";
     return false;
   }
-
-  std::cout << _board.to_string() << "\n";
 
   _turn = (_turn == Color::White ? Color::Black : Color::White);
   return true;
